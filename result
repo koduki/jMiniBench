@@ -1,0 +1,68 @@
+1
+-----
+Java Name:Apple Inc. Java HotSpot(TM) 64-Bit Server VM　1.6.0_65
+Java Version:1.6.0_65(20.65-b04-462)
+OS Name:Mac OS X
+Number of trials:10
+concat string with StringBuilder(100,000,000)	1428.50	2398	1211
+concat string with plus(100,000)	12100.50	12294	11273
+replace string with regular expression	4434.00	4593	3961
+property access with refrection	1133.50	1577	1066
+property access with beanutils	1783.00	2150	1742
+
+
+Java Name:Oracle Corporation Java HotSpot(TM) 64-Bit Server VM
+Java Version:1.7.0_65(24.65-b04)
+OS Name:Mac OS X
+Number of trials:10
+concat string with StringBuilder(100,000,000)	1166.50	1401	1078
+concat string with plus(100,000)	2135.00	2204	2078
+replace string with regular expression	2768.50	3000	2722
+property access with refrection	2037.50	2168	2010
+property access with beanutils	1785.50	2179	1759
+
+Java Name:Oracle Corporation Java HotSpot(TM) 64-Bit Server VM
+Java Version:1.8.0_11(25.11-b03)
+OS Name:Mac OS X
+Number of trials:10
+concat string with StringBuilder(100,000,000)	1170.00	1451	1118
+concat string with plus(100,000)	1788.00	5460	1778
+replace string with regular expression	2363.00	2531	2349
+property access with refrection	2144.50	2315	2125
+property access with beanutils	1900.00	2851	1889
+
+
+2
+-----
+
+Java Name:Apple Inc. Java HotSpot(TM) 64-Bit Server VM
+Java Version:1.6.0_65(20.65-b04-462)
+OS Name:Mac OS X
+Number of trials:10
+concat string with StringBuilder(100,000,000)	1194.50	1959	1179
+concat string with plus(100,000)	10400.00	10589	10391
+replace string with regular expression	3012.00	3153	2979
+property access with refrection	1076.50	1190	1064
+property access with beanutils	1726.00	2102	1720
+
+
+Java Name:Oracle Corporation Java HotSpot(TM) 64-Bit Server VM
+Java Version:1.7.0_65(24.65-b04)
+OS Name:Mac OS X
+Number of trials:10
+concat string with StringBuilder(100,000,000)	1133.00	1396	1094
+concat string with plus(100,000)	2178.00	2313	2130
+replace string with regular expression	2828.50	3048	2793
+property access with refrection	2040.50	2165	2018
+property access with beanutils	1754.50	2161	1730
+
+
+Java Name:Oracle Corporation Java HotSpot(TM) 64-Bit Server VM
+Java Version:1.8.0_11(25.11-b03)
+OS Name:Mac OS X
+Number of trials:10
+concat string with StringBuilder(100,000,000)	1209.50	1408	1103
+concat string with plus(100,000)	1779.50	5588	1767
+replace string with regular expression	2202.50	2327	2194
+property access with refrection	2087.50	2287	2080
+property access with beanutils	1942.50	2737	1921

@@ -46,7 +46,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int trialNumber = 3;
+        int trialNumber = 10;
         printBenchInfomation(trialNumber);
 
         bench(trialNumber, "concat string with StringBuilder(100,000,000)", new Runnable() {
@@ -145,9 +145,18 @@ public class Main {
     }
 
     static void printBenchInfomation(int trialNumber) {
-        System.out.print("Java Version:");
-        System.out.println(System.getProperty("java.version"));
 
+        System.out.print("Java Name:");
+        System.out.print(System.getProperty("java.vm.vendor") + " ");
+        System.out.println(System.getProperty("java.vm.name"));
+        
+        System.out.print("Java Version:");
+        System.out.print(System.getProperty("java.version"));
+        System.out.print("(");
+        System.out.print(System.getProperty("java.vm.version"));
+        System.out.print(")");
+        System.out.println();
+        
         System.out.print("OS Name:");
         System.out.println(System.getProperty("os.name"));
 
