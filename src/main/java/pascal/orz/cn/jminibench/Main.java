@@ -5,8 +5,12 @@
  */
 package pascal.orz.cn.jminibench;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.math3.exception.MathIllegalArgumentException;
 import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.stat.descriptive.rank.Median;
@@ -17,6 +21,29 @@ import org.apache.commons.math3.stat.descriptive.rank.Median;
  */
 public class Main {
 
+    public static class Person {
+
+        String firstName;
+        String lastName;
+
+        public String getFirstName() {
+            return firstName;
+        }
+
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
+
+        public String getLastName() {
+            return lastName;
+        }
+
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
+
+    }
+
     public static void main(String[] args) {
 
         int trialNumber = 3;
@@ -26,11 +53,9 @@ public class Main {
             @Override
             public void run() {
                 int limit = 100000000;
-
-                String[] base = {"a", "b", "c"};
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < limit; i++) {
-                    sb.append(base[i%3]);
+                    sb.append("a");
                 }
 
                 sb.toString();
@@ -41,17 +66,73 @@ public class Main {
             @Override
             public void run() {
                 int limit = 100000;
-
                 String xs = "";
                 for (int i = 0; i < limit; i++) {
                     xs = xs + "a";
                 }
             }
         });
+
+        bench(trialNumber, "replace string with regular expression", new Runnable() {
+            @Override
+            public void run() {
+                int limit = 1000000;
+                for (int i = 0; i < limit; i++) {
+                    "<p>abcdefghireoagjeaiojgioeajgrioeajgioeajiogjaeoigjaeiogjaeiojgioaejgrioaejgioj3a8ty378hro2uifgaergyq3ojgio4yg83jqptoq4jg98qyfjopegoieut89g3uq0tkq3pogkoug89tuh4k[phkq4ug89q4khopjhiojdsoijklmn</p>"
+                            .replaceAll("<", "&lt;")
+                            .replaceAll(">", "&gt;");
+                }
+            }
+        });
+
+        bench(trialNumber, "property access with refrection", new Runnable() {
+            @Override
+            public void run() {
+                //               int limit = 100000;
+                int limit = 1000000;
+                Person person = new Person();
+                try {
+                    for (int i = 0; i < limit; i++) {
+                        Method setter1 = Person.class.getMethod("setFirstName", String.class);
+                        Method setter2 = Person.class.getMethod("setLastName", String.class);
+
+                        Method getter1 = Person.class.getMethod("getFirstName");
+                        Method getter2 = Person.class.getMethod("getLastName");
+
+                        setter1.invoke(person, "first name");
+                        setter2.invoke(person, "last name");
+                        getter1.invoke(person);
+                        getter2.invoke(person);
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        bench(trialNumber, "property access with beanutils", new Runnable() {
+            @Override
+            public void run() {
+                //               int limit = 100000;
+                int limit = 1000000;
+                Person person = new Person();
+                try {
+                    for (int i = 0; i < limit; i++) {
+                        BeanUtils.setProperty(person, "firstName", "first name");
+                        BeanUtils.setProperty(person, "lastName", "last name");
+
+                        BeanUtils.getProperty(person, "firstName");
+                        BeanUtils.getProperty(person, "lastName");
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     static void bench(int trialNumber, String msg, Runnable callback) throws MathIllegalArgumentException {
-        List<Double> results = new ArrayList<>();
+        List<Double> results = new ArrayList<Double>();
         for (int i = 0; i < trialNumber; i++) {
             long start = System.currentTimeMillis();
             callback.run();
